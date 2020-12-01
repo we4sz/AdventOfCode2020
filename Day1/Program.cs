@@ -21,7 +21,7 @@ namespace Day1
         }
     }
 
-    public class Day1
+    public static class Day1
     {
         public static int Calculate1(int[] data)
         {
