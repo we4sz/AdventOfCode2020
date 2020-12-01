@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Inputs\Inputs\Inputs.csproj" />
       <ProjectReference Include="..\Inputs\Inputs.csproj" />
     </ItemGroup>
+
 
 </Project>
