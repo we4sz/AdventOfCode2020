@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Day1Test
 {
-    public class Tests
+    public class Day1Tests
     {
         [TestCase(new int[] {1721, 979, 366, 299, 675, 1456}, 514579)]
         public void TestDay1Part1(int[] data, int result)
