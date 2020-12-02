@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Inputs;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -13,7 +14,7 @@ namespace Day2
     public static class Program
     {
         public static void Main(string[] args)
-        {    
+        {
             var answer1 = Day2.Execute1();
             Console.WriteLine($"Answer1: {answer1}");
 
@@ -25,39 +26,32 @@ namespace Day2
 
     public static class Day2
     {
-
-        private static PasswordData  ParseRule(string s)
+        private static PasswordData ParseRule(string s)
         {
             var reg = new Regex("^([0-9]+)-([0-9]+) ([a-z]): (.*)$");
             var match = reg.Match(s);
 
             return new PasswordData
             {
-                Char = match.Groups[3].Value[0], 
+                Char = match.Groups[3].Value[0],
                 Max = int.Parse(match.Groups[2].Value),
-                Min = int.Parse(match.Groups[1].Value), 
+                Min = int.Parse(match.Groups[1].Value),
                 Password = match.Groups[4].Value
             };
         }
-        
+
         public static int Calculate1(string[] data)
         {
-           var a =   
-                data.Select(ParseRule)
-                    .Count(p =>
-                    {
-                        var count = p.Password.Count(c => c == p.Char);
-                        return count >= p.Min && count <= p.Max;
-                    });
+            var a = data.Select(ParseRule)
+                .Count(p => p.Password.Count(c => c == p.Char).IsWithin(p.Min, p.Max));
 
-           return a;
+            return a;
         }
-        
+
         public static int Calculate2(string[] data)
         {
-            var a =   
-                data.Select(ParseRule)
-                    .Count(p => p.Password.ElementAt(p.Min-1) == p.Char ^ p.Password.ElementAt(p.Max-1) == p.Char);
+            var a = data.Select(ParseRule)
+                .Count(p => p.Password[p.Min - 1] == p.Char ^ p.Password[p.Max - 1] == p.Char);
 
             return a;
         }
@@ -75,9 +69,8 @@ namespace Day2
             var input = Inputs.Utils.GetAsStringArray(2);
             return Calculate2(input);
         }
-
     }
-    
+
     public class PasswordData
     {
         public int Min { get; set; }
@@ -88,5 +81,4 @@ namespace Day2
 
         public string Password { get; set; }
     }
-
 }
