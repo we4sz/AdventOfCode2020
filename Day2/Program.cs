@@ -26,7 +26,7 @@ namespace Day2
 
     public static class Day2
     {
-        private static PasswordData ParseRule(string s)
+        private static PasswordData ParsePasswordData(string s)
         {
             var reg = new Regex("^([0-9]+)-([0-9]+) ([a-z]): (.*)$");
             var match = reg.Match(s);
@@ -34,40 +34,32 @@ namespace Day2
             return new PasswordData
             {
                 Char = match.Groups[3].Value[0],
-                Max = int.Parse(match.Groups[2].Value),
                 Min = int.Parse(match.Groups[1].Value),
+                Max = int.Parse(match.Groups[2].Value),
                 Password = match.Groups[4].Value
             };
         }
 
         public static int Calculate1(string[] data)
         {
-            var a = data.Select(ParseRule)
+            return data.Select(ParsePasswordData)
                 .Count(p => p.Password.Count(c => c == p.Char).IsWithin(p.Min, p.Max));
-
-            return a;
         }
 
         public static int Calculate2(string[] data)
         {
-            var a = data.Select(ParseRule)
+            return data.Select(ParsePasswordData)
                 .Count(p => p.Password[p.Min - 1] == p.Char ^ p.Password[p.Max - 1] == p.Char);
-
-            return a;
         }
-
 
         public static int Execute1()
         {
-            var input = Inputs.Utils.GetAsStringArray(2);
-            return Calculate1(input);
+            return Calculate1(Inputs.Utils.GetAsStringArray(2));
         }
-
-
+        
         public static int Execute2()
         {
-            var input = Inputs.Utils.GetAsStringArray(2);
-            return Calculate2(input);
+            return Calculate2(Inputs.Utils.GetAsStringArray(2));
         }
     }
 
