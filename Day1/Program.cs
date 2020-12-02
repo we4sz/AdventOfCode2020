@@ -33,7 +33,7 @@ namespace Day1
             {
                 return pair[0] * pair[1];
             }
-
+            
             return -1;
         }
 
@@ -53,13 +53,13 @@ namespace Day1
 
         public static int Execute1()
         {
-            var input = Inputs.Utils.GetAsIntArray(1, 1);
+            var input = Inputs.Utils.GetAsIntArray(1);
             return Calculate1(input);
         }
 
         public static int Execute2()
         {
-            var input = Inputs.Utils.GetAsIntArray(1, 1);
+            var input = Inputs.Utils.GetAsIntArray(1);
             return Calculate2(input);
         }
     }

@@ -13,33 +13,25 @@ namespace Day2
     public static class Program
     {
         public static void Main(string[] args)
-        {
+        {    
             var answer1 = Day2.Execute1();
             Console.WriteLine($"Answer1: {answer1}");
 
+            var answer2 = Day2.Execute2();
+            Console.WriteLine($"Answer2: {answer2}");
         }
     }
 
-    public class PasswordCheck
-    {
-        public int Min { get; set; }
-
-        public int Max { get; set; }
-
-        public char Char { get; set; }
-
-        public string Password { get; set; }
-    }
 
     public static class Day2
     {
 
-        private static PasswordCheck  ParseRule(string s)
+        private static PasswordData  ParseRule(string s)
         {
             var reg = new Regex("^([0-9]+)-([0-9]+) ([a-z]): (.*)$");
             var match = reg.Match(s);
 
-            return new PasswordCheck
+            return new PasswordData
             {
                 Char = match.Groups[3].Value[0], 
                 Max = int.Parse(match.Groups[2].Value),
@@ -60,13 +52,41 @@ namespace Day2
 
            return a;
         }
+        
+        public static int Calculate2(string[] data)
+        {
+            var a =   
+                data.Select(ParseRule)
+                    .Count(p => p.Password.ElementAt(p.Min-1) == p.Char ^ p.Password.ElementAt(p.Max-1) == p.Char);
+
+            return a;
+        }
 
 
         public static int Execute1()
         {
-            var input = Inputs.Utils.GetAsStringArray(2, 1);
+            var input = Inputs.Utils.GetAsStringArray(2);
             return Calculate1(input);
         }
 
+
+        public static int Execute2()
+        {
+            var input = Inputs.Utils.GetAsStringArray(2);
+            return Calculate2(input);
+        }
+
     }
+    
+    public class PasswordData
+    {
+        public int Min { get; set; }
+
+        public int Max { get; set; }
+
+        public char Char { get; set; }
+
+        public string Password { get; set; }
+    }
+
 }
