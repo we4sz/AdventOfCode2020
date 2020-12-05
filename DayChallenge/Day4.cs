@@ -8,45 +8,25 @@ namespace DayChallenge
 {
     public static class Day4
     {
-        private static HashSet<string> eyeColor = new HashSet<string> {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
+        private static readonly HashSet<string> eyeColor = new HashSet<string> {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
 
-        private static Regex hclRegex = new Regex("[0-9a-f]{6}");
-        private static Regex passportDataRegex = new Regex("([a-z]{3}):([a-z0-9A-Z#]+)");
+        private static readonly Regex hclRegex = new Regex("[0-9a-f]{6}");
+        private static readonly Regex passportDataRegex = new Regex("([a-z]{3}):([a-z0-9A-Z#]+)");
 
-        private static Dictionary<string, KeyValuePair<int, int>> hgtValues =
-            new Dictionary<string, KeyValuePair<int, int>>
+        private static Dictionary<Regex, Func<string, bool>> hgtValues =
+            new Dictionary<Regex, Func<string, bool>>
             {
-                {"cm", new KeyValuePair<int, int>(150, 193)},
-                {"in", new KeyValuePair<int, int>(59, 76)}
+                {new Regex("^([0-9]+)cm$"), s => s.All(char.IsDigit) && int.Parse(s).IsWithin(150, 193)},
+                {new Regex("^([0-9]+)in$"), s => s.All(char.IsDigit) && int.Parse(s).IsWithin(59, 76)}
             };
 
-        private static Dictionary<string, Func<string, bool>> fieldValidation =
+        private static readonly Dictionary<string, Func<string, bool>> fieldValidation =
             new Dictionary<string, Func<string, bool>>
             {
                 {"byr", (s) => s.Length == 4 && s.All(char.IsDigit) && int.Parse(s).IsWithin(1920, 2002)},
                 {"iyr", (s) => s.Length == 4 && s.All(char.IsDigit) && int.Parse(s).IsWithin(2010, 2020)},
                 {"eyr", (s) => s.Length == 4 && s.All(char.IsDigit) && int.Parse(s).IsWithin(2020, 2030)},
-                {
-                    "hgt", (s) =>
-                    {
-                        if (s.Length < 3)
-                        {
-                            return false;
-                        }
-
-                        var amountString = s.Substring(0, s.Length - 2);
-                        if (!amountString.All(char.IsDigit))
-                        {
-                            return false;
-                        }
-
-                        var unit = s.Substring(s.Length - 2);
-                        var amount = int.Parse(amountString);
-
-                        return hgtValues.ContainsKey(unit) &&
-                               amount.IsWithin(hgtValues[unit].Key, hgtValues[unit].Value);
-                    }
-                },
+                {"hgt", (s) => hgtValues.Any(v => v.Key.IsMatch(s) && v.Value(v.Key.Match(s).Groups[1].Value))},
                 {"hcl", (s) => s.Length == 7 && s[0] == '#' && hclRegex.IsMatch(s.Substring(1))},
                 {"ecl", (s) => eyeColor.Contains(s)},
                 {"pid", (s) => s.Length == 9 && s.All(char.IsDigit)}

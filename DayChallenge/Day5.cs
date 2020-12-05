@@ -18,7 +18,8 @@ namespace DayChallenge
     {
         public static int Calculate1(string data)
         {
-            var a = data.Aggregate(new SeatIndex {MaxRow = 127, MaxColumn = 7}, (seat, c) =>
+            var seat = new SeatIndex {MaxRow = 127, MaxColumn = 7};
+            foreach(var c in data)
             {
                 switch (c)
                 {
@@ -35,11 +36,9 @@ namespace DayChallenge
                         seat.MinColumn = seat.MinColumn + (seat.MaxColumn - seat.MinColumn + 1) / 2;
                         break;
                 }
-
-                return seat;
-            });
-
-            return a.MinRow * 8 + a.MinColumn;
+            }
+            
+            return seat.MinRow * 8 + seat.MinColumn;
         }
 
         public static int Execute1()
