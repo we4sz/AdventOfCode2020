@@ -15,12 +15,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Day1\Day1.csproj" />
-      <ProjectReference Include="..\Day2\Day2.csproj" />
+      <None Remove="input1.txt" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="input1.txt" />
+      <ProjectReference Include="..\DayChallenge\DayChallenge.csproj" />
     </ItemGroup>
 
 </Project>
