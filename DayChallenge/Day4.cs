@@ -13,11 +13,11 @@ namespace DayChallenge
         private static readonly Regex hclRegex = new Regex("[0-9a-f]{6}");
         private static readonly Regex passportDataRegex = new Regex("([a-z]{3}):([a-z0-9A-Z#]+)");
 
-        private static Dictionary<Regex, Func<string, bool>> hgtValues =
+        private static Dictionary<Regex, Func<string, bool>> hgtValidation =
             new Dictionary<Regex, Func<string, bool>>
             {
-                {new Regex("^([0-9]+)cm$"), s => s.All(char.IsDigit) && int.Parse(s).IsWithin(150, 193)},
-                {new Regex("^([0-9]+)in$"), s => s.All(char.IsDigit) && int.Parse(s).IsWithin(59, 76)}
+                {new Regex("^([0-9]+)cm$"), s => int.Parse(s).IsWithin(150, 193)},
+                {new Regex("^([0-9]+)in$"), s => int.Parse(s).IsWithin(59, 76)}
             };
 
         private static readonly Dictionary<string, Func<string, bool>> fieldValidation =
@@ -26,7 +26,7 @@ namespace DayChallenge
                 {"byr", (s) => s.Length == 4 && s.All(char.IsDigit) && int.Parse(s).IsWithin(1920, 2002)},
                 {"iyr", (s) => s.Length == 4 && s.All(char.IsDigit) && int.Parse(s).IsWithin(2010, 2020)},
                 {"eyr", (s) => s.Length == 4 && s.All(char.IsDigit) && int.Parse(s).IsWithin(2020, 2030)},
-                {"hgt", (s) => hgtValues.Any(v => v.Key.IsMatch(s) && v.Value(v.Key.Match(s).Groups[1].Value))},
+                {"hgt", (s) => hgtValidation.Any(v => v.Key.IsMatch(s) && v.Value(v.Key.Match(s).Groups[1].Value))},
                 {"hcl", (s) => s.Length == 7 && s[0] == '#' && hclRegex.IsMatch(s.Substring(1))},
                 {"ecl", (s) => eyeColor.Contains(s)},
                 {"pid", (s) => s.Length == 9 && s.All(char.IsDigit)}
