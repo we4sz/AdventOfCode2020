@@ -1,29 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Inputs;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace Day2
+namespace DayChallenge
 {
-    public static class Program
-    {
-        public static void Main(string[] args)
-        {
-            var answer1 = Day2.Execute1();
-            Console.WriteLine($"Answer1: {answer1}");
-
-            var answer2 = Day2.Execute2();
-            Console.WriteLine($"Answer2: {answer2}");
-        }
-    }
-
-
     public static class Day2
     {
         private static PasswordData ParsePasswordData(string s)
@@ -33,9 +13,9 @@ namespace Day2
 
             return new PasswordData
             {
-                Char = match.Groups[3].Value[0],
                 Min = int.Parse(match.Groups[1].Value),
                 Max = int.Parse(match.Groups[2].Value),
+                Char = match.Groups[3].Value[0],
                 Password = match.Groups[4].Value
             };
         }
@@ -43,7 +23,7 @@ namespace Day2
         public static int Calculate1(string[] data)
         {
             return data.Select(ParsePasswordData)
-                .Count(p => p.Password.Count(c => c == p.Char).IsWithin(p.Min, p.Max));
+                .Count(p => Enumerable.Count<char>(p.Password, c => c == p.Char).IsWithin(p.Min, p.Max));
         }
 
         public static int Calculate2(string[] data)

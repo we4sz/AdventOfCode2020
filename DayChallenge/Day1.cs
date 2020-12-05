@@ -1,26 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace Day1
+namespace DayChallenge
 {
-    public static class Program
-    {
-        public static void Main(string[] args)
-        {
-            var answer1 = Day1.Execute1();
-            Console.WriteLine($"Answer1: {answer1}");
-
-            var answer2 = Day1.Execute2();
-            Console.WriteLine($"Answer2: {answer2}");
-        }
-    }
-
     public static class Day1
     {
         public static int Calculate1(int[] data)
