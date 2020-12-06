@@ -19,25 +19,17 @@ namespace DayChallenge
         public static int Calculate1(string data)
         {
             var seat = new SeatIndex {MaxRow = 127, MaxColumn = 7};
-            foreach(var c in data)
+            foreach (var c in data)
             {
-                switch (c)
+                _ = c switch
                 {
-                    case 'F':
-                        seat.MaxRow = seat.MinRow + (seat.MaxRow - seat.MinRow + 1) / 2 - 1;
-                        break;
-                    case 'B':
-                        seat.MinRow = seat.MinRow + (seat.MaxRow - seat.MinRow + 1) / 2;
-                        break;
-                    case 'L':
-                        seat.MaxColumn = seat.MinColumn + (seat.MaxColumn - seat.MinColumn + 1) / 2 - 1;
-                        break;
-                    case 'R':
-                        seat.MinColumn = seat.MinColumn + (seat.MaxColumn - seat.MinColumn + 1) / 2;
-                        break;
-                }
+                    'F' => seat.MaxRow = seat.MinRow + (seat.MaxRow - seat.MinRow + 1) / 2 - 1,
+                    'B' => seat.MinRow = seat.MinRow + (seat.MaxRow - seat.MinRow + 1) / 2,
+                    'L' => seat.MaxColumn = seat.MinColumn + (seat.MaxColumn - seat.MinColumn + 1) / 2 - 1,
+                    'R' => seat.MinColumn = seat.MinColumn + (seat.MaxColumn - seat.MinColumn + 1) / 2,
+                };
             }
-            
+
             return seat.MinRow * 8 + seat.MinColumn;
         }
 

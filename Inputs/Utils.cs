@@ -52,8 +52,15 @@ namespace Inputs
             return source.Aggregate(new List<List<T>> {new List<T>()},
                 (list, value) =>
                 {
-                    list.Last().Add(value);
-                    if (predicate(value)) list.Add(new List<T>());
+                    if (predicate(value))
+                    {
+                        list.Add(new List<T>());
+                    }
+                    else
+                    {
+                        list.Last().Add(value);
+                    }
+
                     return list;
                 });
         }
