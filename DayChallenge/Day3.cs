@@ -4,32 +4,19 @@ using Inputs;
 
 namespace DayChallenge
 {
-    public class SlopeData
-    {
-        public int Right { get; set; }
-
-        public int Down { get; set; }
-    }
-
-    public class TraversingData
-    {
-        public int ColumnIndex { get; set; }
-        public int AmountOfTrees { get; set; }
-    }
-
     public static class Day3
     {
-        public static int Calculate1(string[] data, SlopeData slopeData)
+        public static int Calculate1(string[] data, (int, int) slopeData)
         {
-            return data.WhereIndexIsModulo(slopeData.Down)
-                .Aggregate(new TraversingData(), (traversingData, currentRow) => new TraversingData
-                {
-                    ColumnIndex = (traversingData.ColumnIndex + slopeData.Right) % currentRow.Length,
-                    AmountOfTrees = traversingData.AmountOfTrees + (currentRow[traversingData.ColumnIndex] == '#' ? 1 : 0)
-                }).AmountOfTrees;
+            return data.WhereIndexIsModulo(slopeData.Item1)
+                .Aggregate((0, 0), (traversingData, currentRow) =>
+                    (
+                        (traversingData.Item1 + slopeData.Item2) % currentRow.Length,
+                        traversingData.Item2 + (currentRow[traversingData.Item1] == '#' ? 1 : 0))
+                ).Item2;
         }
 
-        public static int Calculate2(string[] data, List<SlopeData> slopesData)
+        public static int Calculate2(string[] data, List<(int, int)> slopesData)
         {
             return slopesData.Aggregate(1, (i, slopeData) =>
                 i * Calculate1(data, slopeData));
@@ -37,18 +24,18 @@ namespace DayChallenge
 
         public static int Execute1()
         {
-            return Calculate1(Inputs.Utils.GetAsStringArray(3), new SlopeData {Down = 1, Right = 3});
+            return Calculate1(Inputs.Utils.GetAsStringArray(3), (1, 3));
         }
 
         public static int Execute2()
         {
-            return Calculate2(Inputs.Utils.GetAsStringArray(3), new List<SlopeData>
+            return Calculate2(Inputs.Utils.GetAsStringArray(3), new List<(int, int)>
             {
-                new SlopeData {Down = 1, Right = 1},
-                new SlopeData {Down = 1, Right = 3},
-                new SlopeData {Down = 1, Right = 5},
-                new SlopeData {Down = 1, Right = 7},
-                new SlopeData {Down = 2, Right = 1}
+                (1, 1),
+                (1, 3),
+                (1, 5),
+                (1, 7),
+                (2, 1)
             });
         }
     }

@@ -9,10 +9,9 @@ namespace DayChallenge
     public static class Day4
     {
         private static readonly HashSet<string> eyeColor = new HashSet<string> {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
-
         private static readonly Regex hclRegex = new Regex("[0-9a-f]{6}");
         private static readonly Regex passportDataRegex = new Regex("([a-z]{3}):([a-z0-9A-Z#]+)");
-
+        
         private static Dictionary<Regex, Func<string, bool>> hgtValidation =
             new Dictionary<Regex, Func<string, bool>>
             {

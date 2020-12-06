@@ -10,12 +10,7 @@ namespace DayChallenge
                 .SelectMany(a => data.Select(b => new[] {a, b}))
                 .FirstOrDefault(x => x[0] + x[1] == 2020);
 
-            if (pair != null)
-            {
-                return pair[0] * pair[1];
-            }
-            
-            return -1;
+            return pair[0] * pair[1];
         }
 
         public static int Calculate2(int[] data)
@@ -24,12 +19,7 @@ namespace DayChallenge
                 .SelectMany(a => data.SelectMany(b => data.Select(c => new[] {a, b, c})))
                 .FirstOrDefault(x => x[0] + x[1] + x[2] == 2020);
 
-            if (pair != null)
-            {
-                return pair[0] * pair[1] * pair[2];
-            }
-
-            return -1;
+            return pair[0] * pair[1] * pair[2];
         }
 
         public static int Execute1()
