@@ -22,7 +22,7 @@ namespace DayChallenge
         public static int Calculate1(string[] data)
         {
             return data.Select(ParsePasswordData)
-                .Count(p => p.Item4.Count<char>(c => c == p.Item3).IsWithin(p.Item1, p.Item2));
+                .Count(p => p.Item4.Count(c => c == p.Item3).IsWithin(p.Item1, p.Item2));
         }
 
         public static int Calculate2(string[] data)
