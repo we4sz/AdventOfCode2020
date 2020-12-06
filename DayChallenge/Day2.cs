@@ -23,7 +23,7 @@ namespace DayChallenge
         public static int Calculate1(string[] data)
         {
             return data.Select(ParsePasswordData)
-                .Count(p => Enumerable.Count<char>(p.Password, c => c == p.Char).IsWithin(p.Min, p.Max));
+                .Count(p => p.Password.Count<char>(c => c == p.Char).IsWithin(p.Min, p.Max));
         }
 
         public static int Calculate2(string[] data)
