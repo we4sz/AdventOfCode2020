@@ -13,8 +13,7 @@ namespace DayChallenge
                     'B' => (seat.Item1 + (seat.Item2 - seat.Item1 + 1) / 2, seat.Item2, seat.Item3, seat.Item4),
                     'F' => (seat.Item1, seat.Item1 + (seat.Item2 - seat.Item1 + 1) / 2 - 1, seat.Item3, seat.Item4),
                     'R' => (seat.Item1, seat.Item2, seat.Item3 + (seat.Item4 - seat.Item3 + 1) / 2, seat.Item4),
-                    'L' => (seat.Item1, seat.Item2, seat.Item3, seat.Item3 + (seat.Item4 - seat.Item3 + 1) / 2 - 1),
-                    _ => seat
+                    _ => (seat.Item1, seat.Item2, seat.Item3, seat.Item3 + (seat.Item4 - seat.Item3 + 1) / 2 - 1)
                 }
             );
 
