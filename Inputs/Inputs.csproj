@@ -26,6 +26,9 @@
       <Content Include="day7.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="day8.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <None Remove="Day2\input1.txt" />
     </ItemGroup>
 
