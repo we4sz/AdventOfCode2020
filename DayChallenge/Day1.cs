@@ -8,7 +8,7 @@ namespace DayChallenge
         {
             var pair = data
                 .SelectMany(a => data.Select(b => new[] {a, b}))
-                .FirstOrDefault(x => x[0] + x[1] == 2020);
+                .First(x => x[0] + x[1] == 2020);
 
             return pair[0] * pair[1];
         }
@@ -17,7 +17,7 @@ namespace DayChallenge
         {
             var pair = data
                 .SelectMany(a => data.SelectMany(b => data.Select(c => new[] {a, b, c})))
-                .FirstOrDefault(x => x[0] + x[1] + x[2] == 2020);
+                .First(x => x[0] + x[1] + x[2] == 2020);
 
             return pair[0] * pair[1] * pair[2];
         }
