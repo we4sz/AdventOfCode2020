@@ -65,11 +65,15 @@ namespace Inputs
                 });
         }
 
-        public static IEnumerable<IEnumerable<T>> SplitInHalf<T>(this IEnumerable<T> source)
+        public static List<T> ReplaceAtIndex<T>(this List<T> source, int index, T item)
         {
-            var data = source.ToArray();
-            return new List<IEnumerable<T>>
-                {data.Take(data.Length / 2).ToArray(), data.Skip(data.Length / 2).ToArray()};
+            var a = source
+                .Select((listItem, listIndex) => new {item = listItem, index = listIndex})
+                .Where(x => x.index != index).Select(x => x.item)
+                .ToList();
+            
+            a.Insert(index, item);
+            return a;
         }
     }
 }
